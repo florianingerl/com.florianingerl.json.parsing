@@ -1,0 +1,11 @@
+(?x) # comment mode
+(?(DEFINE)
+(?<number>(?=[1-9]|0(?!\d))\d+) #end of number
+(?<boolean>true|false|null) #end of boolean
+(?<string>"(?:\\.|[^"\\]+)*")#end of string
+(?<array>\[(?: (?'json') (?: , (?'json') )*)?\s*\]) #end of array
+(?<pair>\s* (?'string') \s* : (?'json') ) #end of pair
+(?<object> \{ (?: (?'pair') (?: , (?'pair') )* )? \s* \} ) #end of object
+(?<json> \s* (?: (?'number') | (?'boolean') | (?'string') | (?'array') | (?'object') ) \s* ) #end of json
+) # end of DEFINE
+(?'json')
